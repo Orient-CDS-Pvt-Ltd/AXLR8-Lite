@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       VIEW CATEGORY + CHAT VIEW
+       ════════════════════════════════════════════════════════════════ -->
+  <extension point="org.eclipse.ui.views">
+    <category id="com.orient.axlr8lite.category" name="Orient AXLR8 Lite"/>
+    <view
+        id="com.orient.axlr8lite.view.chat"
+        name="AXLR8 Lite Chat"
+        class="com.orient.axlr8lite.views.LiteChatView"
+        category="com.orient.axlr8lite.category"/>
+  </extension>
+
+  <extension point="org.eclipse.ui.perspectiveExtensions">
+    <perspectiveExtension targetID="*">
+      <view id="com.orient.axlr8lite.view.chat"
+            relationship="right" ratio="0.30"
+            relative="org.eclipse.ui.editors"/>
+    </perspectiveExtension>
+  </extension>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       COMMANDS
+       ════════════════════════════════════════════════════════════════ -->
+  <extension point="org.eclipse.ui.commands">
+
+    <!-- The ONE free command — opens the Lite chat view -->
+    <command
+        id="com.orient.axlr8lite.cmd.openChat"
+        name="Open AXLR8 Lite Chat"
+        description="Opens the AXLR8 Lite AI chat panel"/>
+
+    <!-- The locked-feature command — single command + parameter for ALL Full features -->
+    <command
+        id="com.orient.axlr8lite.cmd.locked"
+        name="Full-Version Feature">
+      <commandParameter
+          id="feature"
+          name="Feature Name"
+          optional="false"/>
+    </command>
+
+  </extension>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       HANDLERS
+       ════════════════════════════════════════════════════════════════ -->
+  <extension point="org.eclipse.ui.handlers">
+    <handler commandId="com.orient.axlr8lite.cmd.openChat"
+             class="com.orient.axlr8lite.handlers.OpenLiteChatHandler"/>
+    <handler commandId="com.orient.axlr8lite.cmd.locked"
+             class="com.orient.axlr8lite.handlers.LockedFeatureHandler"/>
+  </extension>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       KEY BINDING
+       ════════════════════════════════════════════════════════════════ -->
+  <extension point="org.eclipse.ui.bindings">
+    <key sequence="M1+M2+A"
+         commandId="com.orient.axlr8lite.cmd.openChat"
+         schemeId="org.eclipse.ui.defaultAcceleratorConfiguration"/>
+  </extension>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       PREFERENCE PAGE
+       ════════════════════════════════════════════════════════════════ -->
+  <extension point="org.eclipse.ui.preferencePages">
+    <page id="com.orient.axlr8lite.preferences.page"
+          name="Orient AXLR8 Lite"
+          class="com.orient.axlr8lite.preferences.LitePreferencePage"/>
+  </extension>
+
+  <!-- ════════════════════════════════════════════════════════════════
+       TOP-LEVEL MENU: Orient AXLR8 (mirrors Full plugin's menu structure)
+       Free entry: "Chat"
+       All others: open the upsell popup
+       ════════════════════════════════════════════════════════════════ -->
+  <extension point="org.eclipse.ui.menus">
+
+    <!-- Main menu bar : ⛩ Orient AXLR8 -->
+    <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
+      <menu id="com.orient.axlr8lite.menu.axlr8" label="&#x26E9; Orient AXLR8">
+
+        <command commandId="com.orient.axlr8lite.cmd.openChat" label="Chat"/>
+
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Task Planner">
+          <parameter name="feature" value="Task Planner"/>
+        </command>
+
+        <separator name="sep.generate" visible="true"/>
+
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Inline Assist">
+          <parameter name="feature" value="Inline Assist"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Generate Unit Tests">
+          <parameter name="feature" value="Generate Unit Tests"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Generate Documentation">
+          <parameter name="feature" value="Generate Documentation"/>
+        </command>
+
+        <separator name="sep.analyze" visible="true"/>
+
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Analyze Program">
+          <parameter name="feature" value="Analyze Program"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Diagnose &amp;&amp; Fix">
+          <parameter name="feature" value="Diagnose &amp; Fix"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Optimize Performance">
+          <parameter name="feature" value="Optimize Performance"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Run ATC Check">
+          <parameter name="feature" value="Run ATC Check"/>
+        </command>
+
+        <menu label="Refactor">
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="Smart Refactor">
+            <parameter name="feature" value="Smart Refactor"/>
+          </command>
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="Convert to OO ABAP">
+            <parameter name="feature" value="Convert to OO ABAP"/>
+          </command>
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="Convert to RAP">
+            <parameter name="feature" value="Convert to RAP"/>
+          </command>
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="Convert to SQLScript">
+            <parameter name="feature" value="Convert to SQLScript"/>
+          </command>
+        </menu>
+
+        <separator name="sep.debug" visible="true"/>
+
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Analyze ST22 Dump">
+          <parameter name="feature" value="Analyze ST22 Dump"/>
+        </command>
+
+        <separator name="sep.sap" visible="true"/>
+
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="SELECT Performance Advisor">
+          <parameter name="feature" value="SELECT Performance Advisor"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Review Transport Request">
+          <parameter name="feature" value="Review Transport Request"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="BAPI/FM Discovery">
+          <parameter name="feature" value="BAPI/FM Discovery"/>
+        </command>
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Query Table (Natural Language)">
+          <parameter name="feature" value="Query Table (Natural Language)"/>
+        </command>
+
+      </menu>
+    </menuContribution>
+
+    <!-- Main menu bar : ✦ Orient ACTV8 (locked entirely) -->
+    <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=com.orient.axlr8lite.menu.axlr8">
+      <menu id="com.orient.axlr8lite.menu.actv8" label="&#x2726; Orient ACTV8">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="Orient ACTV8">
+          <parameter name="feature" value="Orient ACTV8"/>
+        </command>
+      </menu>
+    </menuContribution>
+
+  </extension>
+
+</plugin>

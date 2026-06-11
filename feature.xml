@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feature
+    id="com.orient.axlr8lite.feature"
+    label="Orient AXLR8 Lite — AI ABAP Chat"
+    version="1.0.0.qualifier"
+    provider-name="OrientCDS Private Limited"
+    plugin="com.orient.axlr8lite">
+
+   <description url="https://aiplugin.genesispro.ai/">
+      AXLR8 Lite — the free, open-source AI chat plugin for SAP ABAP development.
+
+      Adds an AI chat panel to Eclipse that's tuned for ABAP:
+       • 2 LLM providers — Claude Code (via your Claude Pro/Max subscription) or
+         GitHub Models (via your GitHub PAT, free for Copilot subscribers)
+       • Read active editor — chat sees the ABAP file you're working on
+       • EHP8 / S/4HANA mode toggle — AI respects your SAP target version
+       • Apply suggestions to the active editor
+
+      Open source under Apache 2.0. Source on GitHub:
+      https://github.com/Orient-CDS-Pvt-Ltd/AXLR8-Lite
+
+      For live SAP context, code generation, safe deploy, AI Fix loops, TSD
+      docs, 4 more LLM providers, and 16 more chat modes — see the full
+      AXLR8 + ACTV8 plugin.
+   </description>
+
+   <copyright>
+      Copyright 2026 OrientCDS Private Limited. Licensed under Apache 2.0.
+   </copyright>
+
+   <license url="https://www.apache.org/licenses/LICENSE-2.0">
+      Apache License, Version 2.0
+   </license>
+
+   <plugin
+        id="com.orient.axlr8lite"
+        download-size="0"
+        install-size="0"
+        version="0.0.0"
+        unpack="false"/>
+
+</feature>
