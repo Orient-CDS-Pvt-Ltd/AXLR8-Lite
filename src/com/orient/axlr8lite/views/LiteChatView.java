@@ -117,30 +117,37 @@ public class LiteChatView extends ViewPart {
         loadInitialState();
 
         // Restore the previous session's transcript + conversation history,
-        // if any. Otherwise show the ready banner.
-        if (!restorePersistedSession()) {
+        // if any. Otherwise show the ready banner — but only if already registered.
+        // Unregistered users see the lock message instead.
+        if (!RegistrationDialog.isRegistered()) {
+            lockInputForRegistration();
+        } else if (!restorePersistedSession()) {
             appendSystem("AXLR8 Lite ready. Ask anything about ABAP.");
         }
 
         // First-run flow — shown once per install:
-        //   1. Registration form (analytics)
+        //   1. Registration form (mandatory — no Skip, X-button blocked)
         //   2. Welcome / upsell popup
-        // Sequenced (registration first, then welcome) so they don't stack.
+        // Sequenced so they don't stack.
         showFirstRunFlow();
     }
 
-    /** First-run sequence: registration form, then the welcome upsell. Each is
-     *  gated by its own one-time preference flag, so neither re-fires. */
+    /** First-run sequence: mandatory registration, then the welcome upsell. */
     private void showFirstRunFlow() {
         org.eclipse.jface.preference.IPreferenceStore store =
             com.abapai.plugin.activator.Activator.getDefault().getPreferenceStore();
+        final boolean wasUnregistered = !RegistrationDialog.isRegistered();
 
         Display.getDefault().asyncExec(() -> {
-            // 1. Registration (modal — blocks until the user submits or skips)
+            // 1. Registration (mandatory — no Skip, X-button blocked)
             try {
                 RegistrationDialog.showOnceOnFirstRun();
             } catch (Throwable t) {
                 LOG.log(Level.WARNING, "Registration dialog failed: " + t.getMessage(), t);
+            }
+            // Unlock the chat input now that registration is complete.
+            if (wasUnregistered) {
+                unlockInputAfterRegistration();
             }
             // 2. Welcome upsell (only once)
             final String KEY_WELCOME_SHOWN = "lite.welcome.shown";
@@ -153,6 +160,25 @@ public class LiteChatView extends ViewPart {
                 store.setValue(KEY_WELCOME_SHOWN, true);
             }
         });
+    }
+
+    private void lockInputForRegistration() {
+        appendSystem("Registration required — complete the form to start using AXLR8 Lite.");
+        inputField.setEnabled(false);
+        sendBtn.setEnabled(false);
+        clearBtn.setEnabled(false);
+        applyEditorBtn.setEnabled(false);
+        copyCodeBtn.setEnabled(false);
+        statusLabel.setText("Registration required");
+    }
+
+    private void unlockInputAfterRegistration() {
+        if (inputField == null || inputField.isDisposed()) return;
+        inputField.setEnabled(true);
+        sendBtn.setEnabled(true);
+        clearBtn.setEnabled(true);
+        appendSystem("Registration complete — AXLR8 Lite ready. Ask anything about ABAP.");
+        refreshStatusBar();
     }
 
     @Override

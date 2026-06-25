@@ -108,8 +108,13 @@ public final class RegistrationDialog extends TitleAreaDialog {
 
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
-        createButton(parent, IDialogConstants.OK_ID,     "Review & Submit", true);
-        createButton(parent, IDialogConstants.CANCEL_ID, "Skip",            false);
+        createButton(parent, IDialogConstants.OK_ID, "Review & Submit →", true);
+        // No Skip — registration is mandatory before the plugin can be used.
+    }
+
+    @Override
+    protected void handleShellCloseEvent() {
+        // Block the X button — user must submit the form to proceed.
     }
 
     @Override
@@ -163,7 +168,12 @@ public final class RegistrationDialog extends TitleAreaDialog {
 
     // ─── First-run gate ─────────────────────────────────────────────
 
-    private static final String KEY_REGISTERED = "lite.registered";
+    static final String KEY_REGISTERED = "lite.registered";
+
+    public static boolean isRegistered() {
+        return com.abapai.plugin.activator.Activator.getDefault()
+            .getPreferenceStore().getBoolean(KEY_REGISTERED);
+    }
 
     /**
      * Show the registration dialog once, on first chat-view open. Returns
