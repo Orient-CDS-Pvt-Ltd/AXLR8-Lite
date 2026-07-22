@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AXLR8 Lite — Eclipse Update Site</title>
+<style>
+  :root { color-scheme: light dark; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
+    line-height: 1.6;
+    background: #f5f6f8;
+    color: #1c2430;
+    display: flex;
+    justify-content: center;
+    padding: 3rem 1rem;
+  }
+  main { max-width: 680px; width: 100%; }
+  .card {
+    background: #fff;
+    border: 1px solid #e2e6ec;
+    border-radius: 12px;
+    padding: 2rem 2.25rem;
+    margin-bottom: 1.25rem;
+  }
+  h1 { font-size: 1.6rem; margin-bottom: .25rem; }
+  h1 .lite { color: #2f6fed; }
+  .tagline { color: #5a6472; margin-bottom: 1.25rem; }
+  h2 { font-size: 1.05rem; margin: 1.4rem 0 .5rem; }
+  ol { padding-left: 1.4rem; }
+  li { margin-bottom: .35rem; }
+  code, .url {
+    font-family: Consolas, "Cascadia Mono", monospace;
+    font-size: .92em;
+    background: #eef1f5;
+    border-radius: 5px;
+    padding: .12rem .4rem;
+  }
+  .urlbox {
+    display: block;
+    background: #eef1f5;
+    border: 1px solid #dde2ea;
+    border-radius: 8px;
+    padding: .7rem 1rem;
+    font-family: Consolas, "Cascadia Mono", monospace;
+    font-size: .95rem;
+    margin: .5rem 0 1rem;
+    word-break: break-all;
+  }
+  a { color: #2f6fed; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  .links { display: flex; flex-wrap: wrap; gap: 1.25rem; }
+  .note { font-size: .9rem; color: #5a6472; margin-top: 1rem; }
+  footer { text-align: center; font-size: .85rem; color: #7a8494; margin-top: 1.5rem; }
+  @media (prefers-color-scheme: dark) {
+    body { background: #14181e; color: #e4e8ee; }
+    .card { background: #1d232c; border-color: #2c3441; }
+    .tagline, .note { color: #9aa5b4; }
+    code, .url, .urlbox { background: #262e3a; border-color: #333d4c; }
+    a { color: #6b9dff; }
+    footer { color: #71809a; }
+  }
+</style>
+</head>
+<body>
+<main>
+  <div class="card">
+    <h1>AXLR8 <span class="lite">Lite</span></h1>
+    <p class="tagline">Free, open-source AI chat for SAP ABAP development in Eclipse — reads your active editor, knows your SAP release, works with Claude&nbsp;Code or GitHub&nbsp;Models.</p>
+
+    <p><strong>This page is an Eclipse p2 update site</strong> — it is meant to be used from inside Eclipse, not a browser. The plugin files (<a href="content.jar">content.jar</a>, <a href="artifacts.jar">artifacts.jar</a>) are served from this address.</p>
+
+    <h2>Install in Eclipse</h2>
+    <ol>
+      <li>In Eclipse: <strong>Help&nbsp;→ Install New Software…&nbsp;→ Add…</strong></li>
+      <li>Paste this location:</li>
+    </ol>
+    <span class="urlbox">https://orient-cds-pvt-ltd.github.io/AXLR8-Lite/</span>
+    <ol start="3">
+      <li>Select <strong>AXLR8 Lite</strong> → Next → Finish → restart Eclipse.</li>
+      <li>Open the view: <strong>Window → Show View → Other → Orient AXLR8 Lite → AXLR8 Lite Chat</strong> (or <code>Ctrl+Shift+A</code>).</li>
+    </ol>
+
+    <p class="note">Or install from the <a href="https://marketplace.eclipse.org/">Eclipse Marketplace</a> — search for <strong>“AXLR8 Lite”</strong>. Requires Eclipse 2024-09+ and Java&nbsp;17+.</p>
+  </div>
+
+  <div class="card">
+    <h2 style="margin-top:0">Links</h2>
+    <div class="links">
+      <a href="https://github.com/Orient-CDS-Pvt-Ltd/AXLR8-Lite">Source code (Apache 2.0)</a>
+      <a href="https://github.com/Orient-CDS-Pvt-Ltd/AXLR8-Lite/releases">Releases</a>
+      <a href="https://github.com/Orient-CDS-Pvt-Ltd/AXLR8-Lite/issues">Report an issue</a>
+      <a href="https://aiplugin.genesispro.ai/">Full version: AXLR8 + ACTV8</a>
+    </div>
+  </div>
+
+  <footer>© 2026 OrientCDS Private Limited · Apache License 2.0</footer>
+</main>
+</body>
+</html>
