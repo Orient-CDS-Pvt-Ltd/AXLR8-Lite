@@ -1,0 +1,13 @@
+# Build output
+bin/
+dist/
+build_tmp/
+*.class
+
+# Internal licensing tools — signing keys and issuance runbook never ship
+tools/
+
+# Keys, in case one is ever dropped in here by accident
+*.pem
+*.key
+*.p12

@@ -43,7 +43,12 @@ That's it. No SAP credentials needed. No deploy. Just chat that's smarter about 
 ## First-run setup
 
 1. **Window → Show View → Other → Orient AXLR8 Lite → AXLR8 Lite Chat**
-2. Click **⚙ Settings** in the chat toolbar
+2. **Register + activate.** On first open you'll be asked for a few details and
+   sent to a short registration form. Submit it and a **free lifetime license key**
+   is emailed to you automatically — paste it into the activation dialog and click
+   Activate. That's the only thing you need to enter. The key never expires and is
+   verified offline, so no internet connection is needed afterwards.
+3. Click **⚙ Settings** in the chat toolbar
 3. Pick your provider:
    - **Claude Code** — requires the [Claude CLI](https://docs.anthropic.com/claude/docs/claude-code) installed locally. No API key needed if you have a Claude Pro/Max subscription.
    - **GitHub Models** — paste a GitHub PAT with `models:read` scope. [Create one here](https://github.com/settings/personal-access-tokens). Free for Copilot subscribers.

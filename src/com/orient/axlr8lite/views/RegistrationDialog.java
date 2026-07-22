@@ -109,12 +109,9 @@ public final class RegistrationDialog extends TitleAreaDialog {
     @Override
     protected void createButtonsForButtonBar(Composite parent) {
         createButton(parent, IDialogConstants.OK_ID, "Review & Submit →", true);
-        // No Skip — registration is mandatory before the plugin can be used.
-    }
-
-    @Override
-    protected void handleShellCloseEvent() {
-        // Block the X button — user must submit the form to proceed.
+        createButton(parent, IDialogConstants.CANCEL_ID, "Later", false);
+        // Closing is allowed — the chat view stays locked until a license key
+        // is activated, so there is nothing to gain by trapping the dialog.
     }
 
     @Override
@@ -135,6 +132,10 @@ public final class RegistrationDialog extends TitleAreaDialog {
         }
         if (country.isEmpty())     { setErrorMessage("Please enter your country.");      return; }
         setErrorMessage(null);
+
+        // Remember the address so the activation dialog can prefill it — the
+        // license key is bound to exactly this address.
+        com.orient.axlr8lite.license.LicenseManager.rememberRegisteredEmail(email);
 
         openPrefilledForm(name, company, designation, email, country, source);
         super.okPressed();
