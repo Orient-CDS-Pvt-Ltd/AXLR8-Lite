@@ -117,45 +117,41 @@ public class LiteChatView extends ViewPart {
         loadInitialState();
 
         // Restore the previous session's transcript + conversation history,
-        // if any. Otherwise show the ready banner — but only once activated.
-        // Unactivated users see the lock message instead.
-        if (!com.orient.axlr8lite.license.LicenseManager.isActivated()) {
-            lockInputUntilActivated();
+        // if any. Otherwise show the ready banner. Chat is free — the only
+        // first-run step is a quick registration (see showFirstRunFlow).
+        if (!RegistrationDialog.isRegistered()) {
+            lockInputForRegistration();
         } else if (!restorePersistedSession()) {
             appendSystem("AXLR8 Lite ready. Ask anything about ABAP.");
         }
 
         // First-run flow — shown once per install:
-        //   1. Registration form, then license-key activation (both mandatory)
+        //   1. Registration form (opens the Google Form; free, no key required)
         //   2. Welcome / upsell popup
         // Sequenced so they don't stack.
         showFirstRunFlow();
     }
 
-    /** First-run sequence: register, activate the license, then the welcome upsell. */
+    /** First-run sequence: a one-time registration form, then the welcome upsell. */
     private void showFirstRunFlow() {
         org.eclipse.jface.preference.IPreferenceStore store =
             com.abapai.plugin.activator.Activator.getDefault().getPreferenceStore();
+        final boolean wasUnregistered = !RegistrationDialog.isRegistered();
 
         Display.getDefault().asyncExec(() -> {
-            // 1. Registration + activation. Registration opens the Google Form;
-            //    submitting it triggers the automated licence mail.
-            if (!com.orient.axlr8lite.license.LicenseManager.isActivated()) {
-                try {
-                    if (!RegistrationDialog.isRegistered()) {
-                        RegistrationDialog.showOnceOnFirstRun();
-                    }
-                    if (com.orient.axlr8lite.license.ActivationDialog.prompt(getSite().getShell())) {
-                        unlockInputAfterActivation();
-                    }
-                } catch (Throwable t) {
-                    LOG.log(Level.WARNING, "Activation flow failed: " + t.getMessage(), t);
-                }
+            // 1. Registration — shown once, on first open. The chat unlocks
+            //    afterwards whether the user submits or skips; it never nags again.
+            try {
+                RegistrationDialog.showOnceOnFirstRun();
+            } catch (Throwable t) {
+                LOG.log(Level.WARNING, "Registration dialog failed: " + t.getMessage(), t);
             }
-            // 2. Welcome upsell — only once, and only to activated users.
+            if (wasUnregistered) {
+                unlockInputAfterRegistration();
+            }
+            // 2. Welcome upsell — only once.
             final String KEY_WELCOME_SHOWN = "lite.welcome.shown";
-            if (com.orient.axlr8lite.license.LicenseManager.isActivated()
-                    && !store.getBoolean(KEY_WELCOME_SHOWN)) {
+            if (!store.getBoolean(KEY_WELCOME_SHOWN)) {
                 try {
                     com.orient.axlr8lite.views.UpsellDialog.showWelcome();
                 } catch (Throwable t) {
@@ -166,27 +162,23 @@ public class LiteChatView extends ViewPart {
         });
     }
 
-    private void lockInputUntilActivated() {
-        appendSystem("License required — register once and your lifetime key is emailed "
-            + "to you, then paste it to activate. Reopen this view to enter it.");
+    private void lockInputForRegistration() {
+        appendSystem("Just one quick step — complete the short registration to start "
+            + "using AXLR8 Lite. It's free.");
         inputField.setEnabled(false);
         sendBtn.setEnabled(false);
         clearBtn.setEnabled(false);
         applyEditorBtn.setEnabled(false);
         copyCodeBtn.setEnabled(false);
-        statusLabel.setText("Not activated");
+        statusLabel.setText("Registration");
     }
 
-    private void unlockInputAfterActivation() {
+    private void unlockInputAfterRegistration() {
         if (inputField == null || inputField.isDisposed()) return;
         inputField.setEnabled(true);
         sendBtn.setEnabled(true);
         clearBtn.setEnabled(true);
-        applyEditorBtn.setEnabled(true);
-        copyCodeBtn.setEnabled(true);
-        String licensee = com.orient.axlr8lite.license.LicenseManager.getEmail();
-        appendSystem("Activated" + (licensee.isBlank() ? "" : " — licensed to " + licensee)
-            + ". AXLR8 Lite ready, ask anything about ABAP.");
+        appendSystem("AXLR8 Lite ready. Ask anything about ABAP.");
         refreshStatusBar();
     }
 
@@ -459,17 +451,6 @@ public class LiteChatView extends ViewPart {
 
     private void onSend() {
         if (busy) return;
-
-        // Hard gate. Disabling the input is only a UI hint; this re-checks the
-        // signed license so no prompt can reach a provider unactivated. It also
-        // gives users who dismissed the dialog with "Later" a way back in.
-        if (!com.orient.axlr8lite.license.LicenseManager.isActivated()) {
-            if (com.orient.axlr8lite.license.ActivationDialog.prompt(getSite().getShell())) {
-                unlockInputAfterActivation();
-            }
-            return;
-        }
-
         String text = inputField.getText().trim();
         if (text.isEmpty()) return;
 

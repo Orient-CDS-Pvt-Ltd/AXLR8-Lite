@@ -84,72 +84,75 @@
     <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=additions">
       <menu id="com.orient.axlr8lite.menu.axlr8" label="&#x26E9; Orient AXLR8">
 
+        <!-- The one free feature — no lock -->
         <command commandId="com.orient.axlr8lite.cmd.openChat" label="Chat"/>
 
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Task Planner">
+        <!-- Full-only features. The 🔒 prefix marks them as locked; clicking any
+             one opens the upsell popup describing that feature (LockedFeatureHandler). -->
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Task Planner">
           <parameter name="feature" value="Task Planner"/>
         </command>
 
         <separator name="sep.generate" visible="true"/>
 
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Inline Assist">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Inline Assist">
           <parameter name="feature" value="Inline Assist"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Generate Unit Tests">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Generate Unit Tests">
           <parameter name="feature" value="Generate Unit Tests"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Generate Documentation">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Generate Documentation">
           <parameter name="feature" value="Generate Documentation"/>
         </command>
 
         <separator name="sep.analyze" visible="true"/>
 
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Analyze Program">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Analyze Program">
           <parameter name="feature" value="Analyze Program"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Diagnose &amp;&amp; Fix">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Diagnose &amp;&amp; Fix">
           <parameter name="feature" value="Diagnose &amp; Fix"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Optimize Performance">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Optimize Performance">
           <parameter name="feature" value="Optimize Performance"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Run ATC Check">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Run ATC Check">
           <parameter name="feature" value="Run ATC Check"/>
         </command>
 
         <menu label="Refactor">
-          <command commandId="com.orient.axlr8lite.cmd.locked" label="Smart Refactor">
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Smart Refactor">
             <parameter name="feature" value="Smart Refactor"/>
           </command>
-          <command commandId="com.orient.axlr8lite.cmd.locked" label="Convert to OO ABAP">
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Convert to OO ABAP">
             <parameter name="feature" value="Convert to OO ABAP"/>
           </command>
-          <command commandId="com.orient.axlr8lite.cmd.locked" label="Convert to RAP">
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Convert to RAP">
             <parameter name="feature" value="Convert to RAP"/>
           </command>
-          <command commandId="com.orient.axlr8lite.cmd.locked" label="Convert to SQLScript">
+          <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Convert to SQLScript">
             <parameter name="feature" value="Convert to SQLScript"/>
           </command>
         </menu>
 
         <separator name="sep.debug" visible="true"/>
 
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Analyze ST22 Dump">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Analyze ST22 Dump">
           <parameter name="feature" value="Analyze ST22 Dump"/>
         </command>
 
         <separator name="sep.sap" visible="true"/>
 
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="SELECT Performance Advisor">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; SELECT Performance Advisor">
           <parameter name="feature" value="SELECT Performance Advisor"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Review Transport Request">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Review Transport Request">
           <parameter name="feature" value="Review Transport Request"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="BAPI/FM Discovery">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; BAPI/FM Discovery">
           <parameter name="feature" value="BAPI/FM Discovery"/>
         </command>
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Query Table (Natural Language)">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Query Table (Natural Language)">
           <parameter name="feature" value="Query Table (Natural Language)"/>
         </command>
 
@@ -159,7 +162,7 @@
     <!-- Main menu bar : ✦ Orient ACTV8 (locked entirely) -->
     <menuContribution locationURI="menu:org.eclipse.ui.main.menu?after=com.orient.axlr8lite.menu.axlr8">
       <menu id="com.orient.axlr8lite.menu.actv8" label="&#x2726; Orient ACTV8">
-        <command commandId="com.orient.axlr8lite.cmd.locked" label="Orient ACTV8">
+        <command commandId="com.orient.axlr8lite.cmd.locked" label="&#x1F512; Orient ACTV8">
           <parameter name="feature" value="Orient ACTV8"/>
         </command>
       </menu>
